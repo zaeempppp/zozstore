@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - شحن الرصيد</title>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #f00, 0 0 40px #f00;
+        }
+
+        .title {
+            font-size: 24px;
+            color: #f00;
+            text-shadow: 0 0 10px #f00, 0 0 20px #f00;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background: #222;
+            color: #fff;
+            text-align: center;
+        }
+
+        .btn {
+            background: #f00;
+            border: none;
+            color: #fff;
+            padding: 12px;
+            font-size: 18px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #ff2020;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="title">🔑 لوحة تحكم الشحن</div>
+
+        <input type="text" id="userID" class="input-box" placeholder="ID المستخدم">
+        <input type="number" id="amount" class="input-box" placeholder="المبلغ المراد شحنه">
+
+        <button class="btn" onclick="addBalance()">💰 شحن الرصيد</button>
+    </div>
+
+    <script>
+        function addBalance() {
+            const userID = document.getElementById("userID").value;
+            const amount = parseFloat(document.getElementById("amount").value);
+
+            if (!userID || isNaN(amount) || amount <= 0) {
+                alert("❌ يرجى إدخال ID صحيح ومبلغ صالح!");
+                return;
+            }
+
+            // جلب الرصيد الحالي للمستخدم
+            let userBalance = parseFloat(localStorage.getItem("balance_" + userID)) || 0;
+            userBalance += amount;
+
+            // حفظ الرصيد الجديد
+            localStorage.setItem("balance_" + userID, userBalance);
+            alert("✅ تم شحن " + amount + " EGP بنجاح للمستخدم " + userID);
+        }
+    </script>
+
+</body>
+</html>
